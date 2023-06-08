@@ -1,10 +1,8 @@
-// In App.js in a new project
-
-import * as React from 'react';
+import React, {useEffect, useContext} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SplashScreen from 'react-native-splash-screen';
-import {useEffect} from 'react';
+import {View, Text} from 'react-native';
 
 // Screens
 import Login from './src/screens/Login';
@@ -12,23 +10,44 @@ import Signup from './src/screens/Signup';
 import Profile from './src/screens/Profile';
 import WorldMap from './src/screens/WorldMap';
 
+// Context
+import {AuthProvider, AuthContext} from './src/context/Auth';
+
 const Stack = createNativeStackNavigator();
 
-function App() {
+const App = () => {
+  const {userToken, isLoading} = useContext(AuthContext);
+
   useEffect(() => {
     SplashScreen.hide();
   }, []);
 
+  if (isLoading) {
+    return (
+      <View>
+        <Text>Chargement en cours...</Text>
+      </View>
+    );
+  }
+
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName={userToken ? 'Carte' : 'Connexion'}>
+        <Stack.Screen name="Carte" component={WorldMap} />
         <Stack.Screen name="Connexion" component={Login} />
         <Stack.Screen name="Inscription" component={Signup} />
         <Stack.Screen name="Profil" component={Profile} />
-        <Stack.Screen name="Carte" component={WorldMap} />
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
 
-export default App;
+const AppWrapper = () => {
+  return (
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  );
+};
+
+export default AppWrapper;

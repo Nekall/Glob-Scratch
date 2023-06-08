@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {
   View,
   TextInput,
@@ -8,11 +8,17 @@ import {
   Text,
 } from 'react-native';
 
+// Context
+import {AuthContext} from '../../context/Auth';
+
 const LoginScreen = ({navigation}: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const {login} = useContext(AuthContext);
+
   const handleLogin = () => {
+    login();
     console.log('Email:', email);
     console.log('Password:', password);
     navigation.navigate('Carte');

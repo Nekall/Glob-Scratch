@@ -1,7 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, Text, StyleSheet, Button} from 'react-native';
 
-const Profile = () => {
+// Context
+import {AuthContext} from '../../context/Auth';
+
+const Profile = ({navigation}: any) => {
+  const {logout} = useContext(AuthContext);
+
   const username = 'Jaguette';
   const email = 'jeanbaguette@example.com';
   const lastName = 'Baguette';
@@ -14,6 +19,8 @@ const Profile = () => {
   const visitedCountriesThisYear = 5;
 
   const handleLogout = () => {
+    logout();
+    navigation.navigate('Connexion');
     console.log('Logout');
   };
 
