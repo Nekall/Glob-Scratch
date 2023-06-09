@@ -2,11 +2,15 @@ import React, {useState, useContext} from 'react';
 import {
   View,
   TextInput,
-  Button,
   StyleSheet,
   TouchableOpacity,
   Text,
+  Image,
 } from 'react-native';
+import {Toast} from 'toastify-react-native';
+
+// Utils
+import {isEmail} from '../../utils/email';
 
 // Context
 import {AuthContext} from '../../context/Auth';
@@ -18,16 +22,24 @@ const Login = ({navigation}: any) => {
   const {login} = useContext(AuthContext);
 
   const handleLogin = async () => {
-    try {
-      await login(email, password);
-    } catch (error) {
-      console.log(error);
+    if (email && password) {
+      if (isEmail(email)) {
+        await login(email, password);
+        navigation.navigate('Carte');
+      } else {
+        Toast.error('Veuillez saisir un email valide');
+      }
+    } else {
+      Toast.error('Veuillez remplir tous les champs');
     }
-    navigation.navigate('Carte');
   };
 
   return (
     <View style={styles.container}>
+      <Image
+        style={styles.logo}
+        source={require('../../assets/globescratch.png')}
+      />
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -46,11 +58,9 @@ const Login = ({navigation}: any) => {
         style={styles.signupBtn}>
         <Text style={styles.textSignupBtn}>Créer un compte</Text>
       </TouchableOpacity>
-      <Button
-        title="Se connecter"
-        disabled={!(email && password)}
-        onPress={handleLogin}
-      />
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Text style={styles.textButton}>Se connecter</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -76,7 +86,22 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   textSignupBtn: {
-    color: 'blue',
+    color: '#141311',
+    textDecorationLine: 'underline',
+  },
+  logo: {
+    width: 180,
+    height: 180,
+    marginBottom: 20,
+    marginTop: -50,
+  },
+  button: {
+    backgroundColor: '#CBA365',
+    padding: 10,
+    borderRadius: 5,
+  },
+  textButton: {
+    color: '#141311',
   },
 });
 

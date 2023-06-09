@@ -2,13 +2,16 @@ import React, {useEffect, useContext} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SplashScreen from 'react-native-splash-screen';
-import {View, Text} from 'react-native';
+import ToastManager from 'toastify-react-native';
 
 // Screens
 import Login from './src/screens/Login';
 import Signup from './src/screens/Signup';
 import Profile from './src/screens/Profile';
 import WorldMap from './src/screens/WorldMap';
+
+// Components
+import Loading from './src/components/Loading';
 
 // Context
 import {AuthProvider, AuthContext} from './src/context/Auth';
@@ -23,11 +26,7 @@ const App = () => {
   }, []);
 
   if (isLoading) {
-    return (
-      <View>
-        <Text>Chargement en cours...</Text>
-      </View>
-    );
+    return <Loading />;
   }
 
   return (
@@ -45,6 +44,7 @@ const App = () => {
 const AppWrapper = () => {
   return (
     <AuthProvider>
+      <ToastManager />
       <App />
     </AuthProvider>
   );

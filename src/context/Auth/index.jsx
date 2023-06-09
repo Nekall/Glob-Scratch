@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createContext, useEffect, useState } from "react";
 import { API_BASE_URL } from "../../utils/config";
+import {Toast} from 'toastify-react-native';
 
 export const AuthContext = createContext();
 
@@ -31,13 +32,15 @@ export const AuthProvider = ({ children }) => {
                 if (responseJson.success) {
                     setUserToken(responseJson.token);
                     setUserInfo(responseJson.user);
-
+                    Toast.success("Connecté avec succès");
                     AsyncStorage.setItem("userToken", responseJson.token);
                     AsyncStorage.setItem("userInfo", JSON.stringify(responseJson.user));
                 } else {
                     setUserToken(null);
                     setUserInfo(null);
                     AsyncStorage.removeItem("userToken");
+                    Toast.error(responseJson.message);
+
                 }
                 setIsLoading(false);
             }
