@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createContext, useEffect, useState } from "react";
+import { API_BASE_URL } from "../../utils/config";
 
 export const AuthContext = createContext();
 
@@ -7,12 +8,30 @@ export const AuthProvider = ({ children }) => {
     const [userToken, setUserToken] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const login = () => {
+    const login = (email, password) => {
+        console.log(`${API_BASE_URL}/login`);
+
         setIsLoading(true);
         // Call API login here
-        setUserToken("token here");
-        AsyncStorage.setItem("userToken", "token here");
-        setIsLoading(false);
+        fetch(`${API_BASE_URL}/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email,
+                password
+            })
+        })
+            .then(response => response.json())
+            .then(responseJson => {
+                console.log(responseJson);
+                setUserToken(responseJson.token);
+                AsyncStorage.setItem("userToken", responseJson.token);
+                setIsLoading(false);
+            }
+            )
+            .catch(error => console.log(`login error : ${error}`));
     }
 
     const logout = () => {

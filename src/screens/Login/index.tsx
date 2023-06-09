@@ -11,16 +11,18 @@ import {
 // Context
 import {AuthContext} from '../../context/Auth';
 
-const LoginScreen = ({navigation}: any) => {
+const Login = ({navigation}: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const {login} = useContext(AuthContext);
 
-  const handleLogin = () => {
-    login();
-    console.log('Email:', email);
-    console.log('Password:', password);
+  const handleLogin = async () => {
+    try {
+      await login(email, password);
+    } catch (error) {
+      console.log(error);
+    }
     navigation.navigate('Carte');
   };
 
@@ -30,21 +32,25 @@ const LoginScreen = ({navigation}: any) => {
         style={styles.input}
         placeholder="Email"
         value={email}
-        onChangeText={setEmail}
+        onChangeText={text => setEmail(text)}
       />
       <TextInput
         style={styles.input}
         placeholder="Mot de passe"
         secureTextEntry
         value={password}
-        onChangeText={setPassword}
+        onChangeText={text => setPassword(text)}
       />
       <TouchableOpacity
         onPress={() => navigation.navigate('Inscription')}
         style={styles.signupBtn}>
         <Text style={styles.textSignupBtn}>Créer un compte</Text>
       </TouchableOpacity>
-      <Button title="Se connecter" onPress={handleLogin} />
+      <Button
+        title="Se connecter"
+        disabled={!(email && password)}
+        onPress={handleLogin}
+      />
     </View>
   );
 };
@@ -74,4 +80,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default Login;
