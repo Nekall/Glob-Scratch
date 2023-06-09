@@ -6,6 +6,7 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [userToken, setUserToken] = useState(null);
+    const [userInfo, setUserInfo] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
     const login = (email, password) => {
@@ -26,8 +27,18 @@ export const AuthProvider = ({ children }) => {
             .then(response => response.json())
             .then(responseJson => {
                 console.log(responseJson);
-                setUserToken(responseJson.token);
-                AsyncStorage.setItem("userToken", responseJson.token);
+
+                if (responseJson.success) {
+                    setUserToken(responseJson.token);
+                    setUserInfo(responseJson.user);
+
+                    AsyncStorage.setItem("userToken", responseJson.token);
+                    AsyncStorage.setItem("userInfo", JSON.stringify(responseJson.user));
+                } else {
+                    setUserToken(null);
+                    setUserInfo(null);
+                    AsyncStorage.removeItem("userToken");
+                }
                 setIsLoading(false);
             }
             )
@@ -44,8 +55,16 @@ export const AuthProvider = ({ children }) => {
     const isAuthenticated = async () => {
         try {
             setIsLoading(true);
+            let userInfo = await AsyncStorage.getItem("userInfo");
             let userToken = await AsyncStorage.getItem("userToken");
-            setUserToken(userToken);
+
+            userInfo = JSON.parse(userInfo);
+
+            if (userInfo) {
+                setUserToken(userToken);
+                setUserInfo(userInfo);
+            }
+
             setIsLoading(false);
         } catch (error) {
             console.log(`isAuthenticated error : ${error}`);
@@ -57,7 +76,7 @@ export const AuthProvider = ({ children }) => {
     }, [])
 
     return (
-        <AuthContext.Provider value={{ login, logout, userToken, isLoading }}>
+        <AuthContext.Provider value={{ login, logout, userToken, isLoading, userInfo }}>
             {children}
         </AuthContext.Provider>
     )

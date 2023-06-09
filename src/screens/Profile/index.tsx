@@ -5,13 +5,8 @@ import {View, Text, StyleSheet, Button} from 'react-native';
 import {AuthContext} from '../../context/Auth';
 
 const Profile = ({navigation}: any) => {
-  const {logout} = useContext(AuthContext);
-
-  const username = 'Jaguette';
-  const email = 'jeanbaguette@example.com';
-  const lastName = 'Baguette';
-  const firstName = 'Jean';
-  const country = 'France';
+  const {logout, userInfo} = useContext(AuthContext);
+  const {email, firstname, lastname, country} = userInfo;
 
   const totalCountries = 195;
   const visitedCountries = 30;
@@ -21,7 +16,6 @@ const Profile = ({navigation}: any) => {
   const handleLogout = () => {
     logout();
     navigation.navigate('Connexion');
-    console.log('Logout');
   };
 
   const handleEditProfile = () => {
@@ -39,9 +33,8 @@ const Profile = ({navigation}: any) => {
       <Button title="Supprimer mon compte" onPress={handleDeleteAccount} />
       <View style={styles.section}>
         <Text style={styles.title}>Informations personnelles :</Text>
-        <Text style={styles.label}>Pseudo: {username}</Text>
-        <Text style={styles.label}>Nom: {lastName}</Text>
-        <Text style={styles.label}>Prénom: {firstName}</Text>
+        <Text style={styles.label}>Nom: {lastname}</Text>
+        <Text style={styles.label}>Prénom: {firstname}</Text>
         <Text style={styles.label}>Email: {email}</Text>
         <Text style={styles.label}>Pays: {country}</Text>
       </View>
