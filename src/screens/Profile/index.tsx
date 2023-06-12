@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {View, Text, StyleSheet, Button, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 // Context
 import {AuthContext} from '../../context/Auth';
@@ -60,11 +60,11 @@ const Profile = ({navigation}: any) => {
           <Text style={styles.textButton}>Supprimer mon compte</Text>
         </TouchableOpacity>
       </View>
-        <View style={styles.buttonLogoutBox}>
+      <View style={styles.buttonLogoutBox}>
         <TouchableOpacity style={styles.buttonLogout} onPress={handleLogout}>
           <Text style={styles.textButtonLogout}>Se déconnecter</Text>
         </TouchableOpacity>
-        </View>
+      </View>
     </View>
   );
 };

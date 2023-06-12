@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
         })
             .then(response => response.json())
             .then(responseJson => {
-                console.log(responseJson);
+                //console.log(responseJson);
 
                 if (responseJson.success) {
                     setUserToken(responseJson.token);
