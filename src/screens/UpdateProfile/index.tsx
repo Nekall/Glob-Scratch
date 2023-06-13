@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  Alert,
 } from 'react-native';
 
 // Context
@@ -14,7 +15,7 @@ import {AuthContext} from '../../context/Auth';
 import {sleep} from '../../utils/sleep';
 
 const UpdateProfile = ({navigation}: any) => {
-  const {userInfo, updateUser} = useContext(AuthContext);
+  const {userInfo, updateUser, deleteUser} = useContext(AuthContext);
   const [email, setEmail] = useState(userInfo.email);
   const [firstname, setFirstname] = useState(userInfo.firstname);
   const [lastname, setLastname] = useState(userInfo.lastname);
@@ -35,7 +36,24 @@ const UpdateProfile = ({navigation}: any) => {
   };
 
   const handleDeleteAccount = () => {
-    console.log('Delete account');
+    Alert.alert(
+      'Supprimer mon compte',
+      'Êtes-vous sûr de vouloir supprimer votre compte ?',
+      [
+        {
+          text: 'Annuler',
+          style: 'cancel',
+        },
+        {
+          text: 'Supprimer',
+          onPress: async () => {
+            await deleteUser();
+            await sleep(2000);
+            navigation.navigate('Connexion');
+          },
+        },
+      ],
+    );
   };
 
   return (

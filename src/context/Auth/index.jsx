@@ -75,6 +75,30 @@ export const AuthProvider = ({ children }) => {
             .catch(error => console.log(`login error : ${error}`));
     }
 
+    const deleteUser = () => {
+        fetch(`${API_BASE_URL}/user`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${userToken}`,
+            },
+        })
+            .then(response => response.json())
+            .then(responseJson => {
+                if (responseJson.success) {
+                    setUserToken(null);
+                    setUserInfo(null);
+                    AsyncStorage.removeItem('userToken');
+                    AsyncStorage.removeItem('userInfo');
+                    Toast.success('Compte supprimé avec succès');
+                } else {
+                    Toast.error(responseJson.message);
+                }
+            })
+            .catch(error => console.log(`deleteUser error: ${error}`));
+    };
+
+
     const logout = () => {
         setIsLoading(true);
         setUserToken(null);
@@ -106,7 +130,7 @@ export const AuthProvider = ({ children }) => {
     }, [])
 
     return (
-        <AuthContext.Provider value={{ login, logout, userToken, isLoading, userInfo, updateUser }}>
+        <AuthContext.Provider value={{ login, logout, userToken, isLoading, userInfo, updateUser, deleteUser }}>
             {children}
         </AuthContext.Provider>
     )
