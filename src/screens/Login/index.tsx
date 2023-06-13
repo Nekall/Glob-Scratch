@@ -24,7 +24,7 @@ const Login = ({navigation}: any) => {
   const handleLogin = async () => {
     if (email && password) {
       if (isEmail(email)) {
-        await login(email, password);
+        await login(email.toLowerCase(), password);
         navigation.navigate('Carte');
       } else {
         Toast.error('Veuillez saisir un email valide');
