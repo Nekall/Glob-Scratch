@@ -36,7 +36,8 @@ const Profile = ({navigation}: any) => {
       <View style={styles.section}>
         <Text style={styles.title}>Statistiques :</Text>
         <Text style={styles.label}>
-          Nombre de pays visités: {visitedDepartments} / {totalDepartments}
+          Nombre de département (métropole) visités: {visitedDepartments} /{' '}
+          {totalDepartments}
         </Text>
       </View>
       <View style={styles.section}>
@@ -44,11 +45,10 @@ const Profile = ({navigation}: any) => {
         <Text style={styles.label}>Badges à venir</Text>
       </View>
       <View style={styles.buttonsBox}>
-        <TouchableOpacity style={styles.button} onPress={handleEditProfile}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('Mise à jour du Profil')}>
           <Text style={styles.textButton}>Modifier mon profil</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={handleDeleteAccount}>
-          <Text style={styles.textButton}>Supprimer mon compte</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.buttonLogoutBox}>
@@ -81,7 +81,8 @@ const styles = StyleSheet.create({
   buttonsBox: {
     flex: 0.25,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    marginBottom: 16,
   },
   button: {
     backgroundColor: '#CBA365',

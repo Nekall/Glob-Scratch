@@ -10,6 +10,7 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import Login from './src/screens/Login';
 import Signup from './src/screens/Signup';
 import Profile from './src/screens/Profile';
+import UpdateProfile from './src/screens/UpdateProfile';
 //import WorldMap from './src/screens/WorldMap';
 import FranceMap from './src/screens/FranceMap';
 
@@ -39,6 +40,7 @@ const App = () => {
         <Stack.Screen name="Connexion" component={Login} />
         <Stack.Screen name="Inscription" component={Signup} />
         <Stack.Screen name="Profil" component={Profile} />
+        <Stack.Screen name="Mise à jour du Profil" component={UpdateProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   );
