@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createContext, useEffect, useState } from "react";
 import { API_BASE_URL } from "../../utils/config";
-import {Toast} from 'toastify-react-native';
+import { Toast } from 'toastify-react-native';
 
 export const AuthContext = createContext();
 
@@ -27,8 +27,6 @@ export const AuthProvider = ({ children }) => {
         })
             .then(response => response.json())
             .then(responseJson => {
-                //console.log(responseJson);
-
                 if (responseJson.success) {
                     setUserToken(responseJson.token);
                     setUserInfo(responseJson.user);
@@ -45,6 +43,35 @@ export const AuthProvider = ({ children }) => {
                 setIsLoading(false);
             }
             )
+            .catch(error => console.log(`login error : ${error}`));
+    }
+
+    const updateUser = (user) => {
+        const { firstname, lastname, password, email, country, franceDpt } = user;
+        fetch(`${API_BASE_URL}/user`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${userToken}`
+            },
+            body: JSON.stringify({
+                firstname,
+                lastname,
+                password,
+                email,
+                country,
+                franceDpt
+            })
+        })
+            .then(response => response.json())
+            .then(responseJson => {
+                if (responseJson.success) {
+                    setUserInfo(responseJson.user);
+                    AsyncStorage.setItem("userInfo", JSON.stringify(responseJson.user));
+                } else {
+                    Toast.error(responseJson.message);
+                }
+            })
             .catch(error => console.log(`login error : ${error}`));
     }
 
@@ -79,7 +106,7 @@ export const AuthProvider = ({ children }) => {
     }, [])
 
     return (
-        <AuthContext.Provider value={{ login, logout, userToken, isLoading, userInfo }}>
+        <AuthContext.Provider value={{ login, logout, userToken, isLoading, userInfo, updateUser }}>
             {children}
         </AuthContext.Provider>
     )

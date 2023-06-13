@@ -2,9 +2,13 @@ import React from 'react';
 import {Svg, Path} from 'react-native-svg';
 import {Alert} from 'react-native';
 
-const FranceSVG = ({departments}: any) => {
-  // Mettre a jour le context après un ajout ou une suppression de département dans l'array
+interface FranceSVGProps {
+  departments: any;
+  updateUser: any;
+  userInfo: any;
+}
 
+const FranceSVG = ({departments, updateUser, userInfo}: FranceSVGProps) => {
   const arrDpt = [
     {
       id: 'dep_2a',
@@ -392,6 +396,27 @@ const FranceSVG = ({departments}: any) => {
     },
   ];
 
+  const addDepartment = (id: any) => {
+    const updatedUserInfo = {
+      ...userInfo,
+      franceDpt: JSON.stringify([...JSON.parse(userInfo.franceDpt), id]),
+    };
+
+    updateUser(updatedUserInfo);
+  };
+
+  const removeDepartment = (id: any) => {
+    const updatedUserInfo = {
+      ...userInfo,
+      franceDpt: JSON.stringify(
+        JSON.parse(userInfo.franceDpt).filter((dpt: any) => dpt !== id),
+      ),
+    };
+    console.log('updatedUserInfo', updatedUserInfo);
+
+    updateUser(updatedUserInfo);
+  };
+
   return (
     <Svg xmlns="http://www.w3.org/2000/svg" width="907" height="1000">
       <Path
@@ -418,11 +443,14 @@ const FranceSVG = ({departments}: any) => {
                 [
                   {
                     text: 'Confirmer',
-                    onPress: () => console.log('Confirmation en cours...'),
+                    onPress: () =>
+                      departments.includes(dpt.id)
+                        ? removeDepartment(dpt.id)
+                        : addDepartment(dpt.id),
                   },
                   {
                     text: 'Annuler',
-                    onPress: () => console.log('Annulation de l action.'),
+                    onPress: () => {},
                   },
                 ],
               )

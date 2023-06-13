@@ -9,7 +9,7 @@ import FranceSVG from '../../components/FranceSVG';
 import {AuthContext} from '../../context/Auth';
 
 const FranceMap = ({navigation}: any) => {
-  const {userInfo} = useContext(AuthContext);
+  const {userInfo, updateUser} = useContext(AuthContext);
 
   const [scale, setScale] = useState(0.4);
   const scaleValue = useRef(new Animated.Value(scale)).current;
@@ -41,7 +41,11 @@ const FranceMap = ({navigation}: any) => {
         onGestureEvent={onPinchGestureEvent}
         onHandlerStateChange={onPinchHandlerStateChange}>
         <Animated.View style={transformedStyle}>
-          <FranceSVG departments={JSON.parse(userInfo.franceDpt)} />
+          <FranceSVG
+            departments={JSON.parse(userInfo.franceDpt)}
+            updateUser={updateUser}
+            userInfo={userInfo}
+          />
         </Animated.View>
       </PinchGestureHandler>
     </View>

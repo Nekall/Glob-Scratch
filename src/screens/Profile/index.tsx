@@ -6,12 +6,10 @@ import {AuthContext} from '../../context/Auth';
 
 const Profile = ({navigation}: any) => {
   const {logout, userInfo} = useContext(AuthContext);
-  const {email, firstname, lastname, country} = userInfo;
+  const {email, firstname, lastname, country, franceDpt} = userInfo;
 
-  const totalCountries = 195;
-  const visitedCountries = 30;
-  const futureDestinations = 10;
-  const visitedCountriesThisYear = 5;
+  const totalDepartments = 96;
+  const visitedDepartments = JSON.parse(franceDpt).length;
 
   const handleLogout = () => {
     logout();
@@ -29,10 +27,6 @@ const Profile = ({navigation}: any) => {
   return (
     <View style={styles.container}>
       <View style={styles.section}>
-        <Text style={styles.title}>Badges :</Text>
-        <Text style={styles.label}>Badges à venir</Text>
-      </View>
-      <View style={styles.section}>
         <Text style={styles.title}>Informations personnelles :</Text>
         <Text style={styles.label}>Nom: {lastname}</Text>
         <Text style={styles.label}>Prénom: {firstname}</Text>
@@ -42,15 +36,12 @@ const Profile = ({navigation}: any) => {
       <View style={styles.section}>
         <Text style={styles.title}>Statistiques :</Text>
         <Text style={styles.label}>
-          Nombre de pays visités: {visitedCountries} / {totalCountries}
+          Nombre de pays visités: {visitedDepartments} / {totalDepartments}
         </Text>
-        <Text style={styles.label}>
-          Nombre de pays dans la liste des futures destinations :{' '}
-          {futureDestinations}
-        </Text>
-        <Text style={styles.label}>
-          Nombre de pays visités cette année : {visitedCountriesThisYear}
-        </Text>
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.title}>Badges :</Text>
+        <Text style={styles.label}>Badges à venir</Text>
       </View>
       <View style={styles.buttonsBox}>
         <TouchableOpacity style={styles.button} onPress={handleEditProfile}>
@@ -99,6 +90,7 @@ const styles = StyleSheet.create({
   },
   textButton: {
     color: '#141311',
+    fontSize: 16,
   },
   buttonLogoutBox: {
     flex: 0.3,
