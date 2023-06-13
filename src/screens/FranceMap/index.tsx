@@ -1,9 +1,16 @@
-import React, {useRef, useState} from 'react';
+import React, {useContext, useRef, useState} from 'react';
 import {View, StyleSheet, Animated, TouchableOpacity, Text} from 'react-native';
 import {PinchGestureHandler, State} from 'react-native-gesture-handler';
+
+// Components
 import FranceSVG from '../../components/FranceSVG';
 
+// Context
+import {AuthContext} from '../../context/Auth';
+
 const FranceMap = ({navigation}: any) => {
+  const {userInfo} = useContext(AuthContext);
+
   const [scale, setScale] = useState(0.4);
   const scaleValue = useRef(new Animated.Value(scale)).current;
 
@@ -34,7 +41,7 @@ const FranceMap = ({navigation}: any) => {
         onGestureEvent={onPinchGestureEvent}
         onHandlerStateChange={onPinchHandlerStateChange}>
         <Animated.View style={transformedStyle}>
-          <FranceSVG />
+          <FranceSVG departments={JSON.parse(userInfo.franceDpt)} />
         </Animated.View>
       </PinchGestureHandler>
     </View>
