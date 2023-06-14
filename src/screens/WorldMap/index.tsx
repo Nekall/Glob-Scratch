@@ -73,12 +73,31 @@ const WorldMap = ({navigation}: any) => {
     ],
   };
 
+  const resetPositionAndZoom = () => {
+    setScale(0.6);
+    setTranslateX(0);
+    setTranslateY(0);
+    scaleValue.setValue(0.6);
+    translateXValue.setValue(0);
+    translateYValue.setValue(0);
+  };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('Profil')}>
         <Text style={styles.textButton}>Profil</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.buttonFrance}
+        onPress={() => navigation.navigate('Carte France')}>
+        <Text style={styles.textButtonFrance}>🇫🇷</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.buttonReset}
+        onPress={() => resetPositionAndZoom()}>
+        <Text style={styles.textButtonReset}>Reset</Text>
       </TouchableOpacity>
       <PinchGestureHandler
         onGestureEvent={onPinchGestureEvent}
@@ -120,6 +139,36 @@ const styles = StyleSheet.create({
   textButton: {
     color: '#141311',
     fontSize: 18,
+  },
+  buttonFrance: {
+    backgroundColor: '#CBA365',
+    padding: 10,
+    borderTopLeftRadius: 15,
+    borderBottomLeftRadius: 15,
+    position: 'absolute',
+    bottom: 10,
+    right: 0,
+    zIndex: 1,
+  },
+  textButtonFrance: {
+    color: '#141311',
+    fontSize: 18,
+  },
+  buttonReset: {
+    backgroundColor: '#141311',
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 8,
+    paddingRight: 8,
+    borderRadius: 50,
+    position: 'absolute',
+    bottom: 20,
+    left: 10,
+    zIndex: 1,
+  },
+  textButtonReset: {
+    color: '#fff',
+    fontSize: 16,
   },
 });
 
