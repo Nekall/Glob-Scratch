@@ -89,7 +89,7 @@ const WorldMap = ({navigation}: any) => {
             onHandlerStateChange={onPanHandlerStateChange}>
             <Animated.View style={transformedStyle}>
               <WorldSVG
-                countries={JSON.parse(userInfo.franceDpt)}
+                countries={JSON.parse(userInfo.countries)}
                 updateUser={updateUser}
                 userInfo={userInfo}
               />

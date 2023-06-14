@@ -1879,7 +1879,6 @@ const WorldSVG = ({countries, updateUser, userInfo}: WorldSVGProps) => {
       ...userInfo,
       countries: JSON.stringify([...JSON.parse(userInfo.countries), id]),
     };
-    console.log(updatedUserInfo);
     updateUser(updatedUserInfo);
   };
 

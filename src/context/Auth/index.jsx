@@ -11,10 +11,7 @@ export const AuthProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const login = (email, password) => {
-        console.log(`${API_BASE_URL}/login`);
-
         setIsLoading(true);
-        // Call API login here
         fetch(`${API_BASE_URL}/login`, {
             method: "POST",
             headers: {
@@ -43,7 +40,7 @@ export const AuthProvider = ({ children }) => {
                 setIsLoading(false);
             }
             )
-            .catch(error => console.log(`login error : ${error}`));
+            .catch(error => console.error(`login error : ${error}`));
     }
 
     const updateUser = (user) => {
@@ -73,7 +70,7 @@ export const AuthProvider = ({ children }) => {
                     Toast.error(responseJson.message);
                 }
             })
-            .catch(error => console.log(`login error : ${error}`));
+            .catch(error => console.error(`login error : ${error}`));
     }
 
     const deleteUser = () => {
@@ -96,7 +93,7 @@ export const AuthProvider = ({ children }) => {
                     Toast.error(responseJson.message);
                 }
             })
-            .catch(error => console.log(`deleteUser error: ${error}`));
+            .catch(error => console.error(`deleteUser error: ${error}`));
     };
 
 
@@ -122,7 +119,7 @@ export const AuthProvider = ({ children }) => {
 
             setIsLoading(false);
         } catch (error) {
-            console.log(`isAuthenticated error : ${error}`);
+            console.error(`isAuthenticated error : ${error}`);
         }
     }
 
