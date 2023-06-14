@@ -1,6 +1,10 @@
 import React, {useContext, useRef, useState} from 'react';
 import {View, StyleSheet, Animated, TouchableOpacity, Text} from 'react-native';
-import {PinchGestureHandler, State} from 'react-native-gesture-handler';
+import {
+  PinchGestureHandler,
+  State,
+  PanGestureHandler,
+} from 'react-native-gesture-handler';
 
 // Components
 import FranceSVG from '../../components/FranceSVG';
@@ -11,23 +15,62 @@ import {AuthContext} from '../../context/Auth';
 const FranceMap = ({navigation}: any) => {
   const {userInfo, updateUser} = useContext(AuthContext);
 
-  const [scale, setScale] = useState(0.4);
+  const [scale, setScale] = useState(0.6);
+  const [translateX, setTranslateX] = useState(0);
+  const [translateY, setTranslateY] = useState(0);
+
   const scaleValue = useRef(new Animated.Value(scale)).current;
+  const translateXValue = useRef(new Animated.Value(translateX)).current;
+  const translateYValue = useRef(new Animated.Value(translateY)).current;
 
   const onPinchGestureEvent = Animated.event(
     [{nativeEvent: {scale: scaleValue}}],
     {useNativeDriver: true},
   );
 
+  const onPanGestureEvent = Animated.event(
+    [
+      {
+        nativeEvent: {
+          translationX: translateXValue,
+          translationY: translateYValue,
+        },
+      },
+    ],
+    {useNativeDriver: true},
+  );
+
   const onPinchHandlerStateChange = (event: any) => {
     if (event.nativeEvent.oldState === State.ACTIVE) {
       setScale(scale * event.nativeEvent.scale);
-      scaleValue.setValue(0.4);
+    }
+  };
+
+  const onPanHandlerStateChange = (event: any) => {
+    if (event.nativeEvent.oldState === State.ACTIVE) {
+      setTranslateX(translateX + event.nativeEvent.translationX);
+      setTranslateY(translateY + event.nativeEvent.translationY);
+      translateXValue.setValue(0);
+      translateYValue.setValue(0);
     }
   };
 
   const transformedStyle = {
-    transform: [{scale: scaleValue}],
+    transform: [
+      {scale: scaleValue},
+      {
+        translateX: Animated.add(
+          translateXValue,
+          new Animated.Value(translateX),
+        ),
+      },
+      {
+        translateY: Animated.add(
+          translateYValue,
+          new Animated.Value(translateY),
+        ),
+      },
+    ],
   };
 
   return (
@@ -41,11 +84,17 @@ const FranceMap = ({navigation}: any) => {
         onGestureEvent={onPinchGestureEvent}
         onHandlerStateChange={onPinchHandlerStateChange}>
         <Animated.View style={transformedStyle}>
-          <FranceSVG
-            departments={JSON.parse(userInfo.franceDpt)}
-            updateUser={updateUser}
-            userInfo={userInfo}
-          />
+          <PanGestureHandler
+            onGestureEvent={onPanGestureEvent}
+            onHandlerStateChange={onPanHandlerStateChange}>
+            <Animated.View style={transformedStyle}>
+              <FranceSVG
+                departments={JSON.parse(userInfo.franceDpt)}
+                updateUser={updateUser}
+                userInfo={userInfo}
+              />
+            </Animated.View>
+          </PanGestureHandler>
         </Animated.View>
       </PinchGestureHandler>
     </View>
