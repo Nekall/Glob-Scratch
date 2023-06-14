@@ -1,32 +1,105 @@
-import React, {useState} from 'react';
-import {View, TextInput, Button, StyleSheet} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  Image,
+} from 'react-native';
+import {Toast} from 'toastify-react-native';
 
-const Signup = () => {
+// Utils
+import {isEmail} from '../../utils/email';
+
+// Env
+import {API_BASE_URL} from '../../utils/config';
+
+const Signup = ({navigation}: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [username, setUsername] = useState('');
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [country, setCountry] = useState('');
+  const [inputsIsValid, setInputsIsValid] = useState(false);
+
+  useEffect(() => {
+    if (
+      email &&
+      password &&
+      confirmPassword &&
+      firstname &&
+      lastname &&
+      country
+    ) {
+      setInputsIsValid(true);
+    }
+  }, [confirmPassword, email, password, firstname, lastname, country]);
 
   const handleSignUp = () => {
     if (password === confirmPassword) {
-      console.log("Enregistrement de l'utilisateur...");
+      if (isEmail(email)) {
+        fetch(`${API_BASE_URL}/signup`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            email: email.toLowerCase(),
+            password,
+            firstname,
+            lastname,
+            country,
+          }),
+        })
+          .then(res => res.json())
+          .then(responseJson => {
+            if (responseJson.success) {
+              Toast.success('Compte créé avec succès.');
+              navigation.navigate('Connexion');
+            } else {
+              Toast.error(responseJson.message);
+            }
+          })
+          .catch(err => {
+            Toast.error('Erreur lors de la création du compte.');
+            console.error(err);
+          });
+      } else {
+        Toast.error('Email invalide.');
+      }
     } else {
-      console.log('Les mots de passe ne correspondent pas.');
+      Toast.error('Les mots de passe ne correspondent pas.');
     }
   };
 
   return (
     <View style={styles.container}>
+      <Image
+        style={styles.logo}
+        source={require('../../assets/globescratch.png')}
+      />
       <TextInput
-        placeholder="Pseudo"
-        value={username}
-        onChangeText={setUsername}
+        placeholder="Prénom"
+        value={firstname}
+        onChangeText={setFirstname}
+        style={styles.input}
+      />
+      <TextInput
+        placeholder="Nom"
+        value={lastname}
+        onChangeText={setLastname}
         style={styles.input}
       />
       <TextInput
         placeholder="Adresse e-mail"
         value={email}
         onChangeText={setEmail} //.toLowerCase()
+        style={styles.input}
+      />
+      <TextInput
+        placeholder="Pays"
+        value={country}
+        onChangeText={setCountry}
         style={styles.input}
       />
       <TextInput
@@ -43,7 +116,12 @@ const Signup = () => {
         secureTextEntry
         style={styles.input}
       />
-      <Button title="Créer un compte" onPress={handleSignUp} />
+      <TouchableOpacity
+        style={styles.button}
+        onPress={handleSignUp}
+        disabled={!inputsIsValid}>
+        <Text style={styles.textButton}>Créer un compte</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -55,13 +133,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
   },
+  logo: {
+    width: 180,
+    height: 180,
+    marginBottom: 20,
+    marginTop: -50,
+  },
   input: {
     width: '100%',
     height: 40,
-    borderColor: 'gray',
     borderWidth: 1,
-    marginBottom: 12,
-    paddingHorizontal: 8,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+  },
+  button: {
+    backgroundColor: '#CBA365',
+    padding: 10,
+    borderRadius: 5,
+  },
+  textButton: {
+    color: '#141311',
   },
 });
 
