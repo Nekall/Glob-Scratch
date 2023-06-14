@@ -115,6 +115,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 10,
     right: 0,
+    zIndex: 1,
   },
   textButton: {
     color: '#141311',

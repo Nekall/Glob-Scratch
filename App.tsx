@@ -11,7 +11,7 @@ import Login from './src/screens/Login';
 import Signup from './src/screens/Signup';
 import Profile from './src/screens/Profile';
 import UpdateProfile from './src/screens/UpdateProfile';
-//import WorldMap from './src/screens/WorldMap';
+import WorldMap from './src/screens/WorldMap';
 import FranceMap from './src/screens/FranceMap';
 
 // Components
@@ -36,7 +36,8 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName={userToken ? 'Carte' : 'Connexion'}>
-        <Stack.Screen name="Carte" component={FranceMap} />
+        <Stack.Screen name="Carte France" component={FranceMap} />
+        <Stack.Screen name="Carte" component={WorldMap} />
         <Stack.Screen name="Connexion" component={Login} />
         <Stack.Screen name="Inscription" component={Signup} />
         <Stack.Screen name="Profil" component={Profile} />

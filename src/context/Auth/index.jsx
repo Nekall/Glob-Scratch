@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     const updateUser = (user) => {
-        const { firstname, lastname, password, email, country, franceDpt } = user;
+        const { firstname, lastname, password, email, country, franceDpt, countries } = user;
         fetch(`${API_BASE_URL}/user`, {
             method: "PUT",
             headers: {
@@ -60,7 +60,8 @@ export const AuthProvider = ({ children }) => {
                 password,
                 email,
                 country,
-                franceDpt
+                franceDpt,
+                countries
             })
         })
             .then(response => response.json())

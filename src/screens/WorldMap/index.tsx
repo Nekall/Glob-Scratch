@@ -1,114 +1,126 @@
-import React from 'react';
-import {View} from 'react-native';
-import {SvgXml} from 'react-native-svg';
+import React, {useContext, useRef, useState} from 'react';
+import {View, StyleSheet, Animated, TouchableOpacity, Text} from 'react-native';
+import {
+  PinchGestureHandler,
+  State,
+  PanGestureHandler,
+} from 'react-native-gesture-handler';
 
-const WorldMap = () => {
+// Components
+import WorldSVG from '../../components/WorldSVG';
+
+// Context
+import {AuthContext} from '../../context/Auth';
+
+const WorldMap = ({navigation}: any) => {
+  const {userInfo, updateUser} = useContext(AuthContext);
+
+  const [scale, setScale] = useState(0.6);
+  const [translateX, setTranslateX] = useState(0);
+  const [translateY, setTranslateY] = useState(0);
+
+  const scaleValue = useRef(new Animated.Value(scale)).current;
+  const translateXValue = useRef(new Animated.Value(translateX)).current;
+  const translateYValue = useRef(new Animated.Value(translateY)).current;
+
+  const onPinchGestureEvent = Animated.event(
+    [{nativeEvent: {scale: scaleValue}}],
+    {useNativeDriver: true},
+  );
+
+  const onPanGestureEvent = Animated.event(
+    [
+      {
+        nativeEvent: {
+          translationX: translateXValue,
+          translationY: translateYValue,
+        },
+      },
+    ],
+    {useNativeDriver: true},
+  );
+
+  const onPinchHandlerStateChange = (event: any) => {
+    if (event.nativeEvent.oldState === State.ACTIVE) {
+      setScale(scale * event.nativeEvent.scale);
+    }
+  };
+
+  const onPanHandlerStateChange = (event: any) => {
+    if (event.nativeEvent.oldState === State.ACTIVE) {
+      setTranslateX(translateX + event.nativeEvent.translationX);
+      setTranslateY(translateY + event.nativeEvent.translationY);
+      translateXValue.setValue(0);
+      translateYValue.setValue(0);
+    }
+  };
+
+  const transformedStyle = {
+    transform: [
+      {scale: scaleValue},
+      {
+        translateX: Animated.add(
+          translateXValue,
+          new Animated.Value(translateX),
+        ),
+      },
+      {
+        translateY: Animated.add(
+          translateYValue,
+          new Animated.Value(translateY),
+        ),
+      },
+    ],
+  };
+
   return (
-    <View>
-      <SvgXml
-        xml={require('../../assets/world.svg')}
-        width="100%"
-        height="100%"
-      />
+    <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Profil')}>
+        <Text style={styles.textButton}>Profil</Text>
+      </TouchableOpacity>
+      <PinchGestureHandler
+        onGestureEvent={onPinchGestureEvent}
+        onHandlerStateChange={onPinchHandlerStateChange}>
+        <Animated.View style={transformedStyle}>
+          <PanGestureHandler
+            onGestureEvent={onPanGestureEvent}
+            onHandlerStateChange={onPanHandlerStateChange}>
+            <Animated.View style={transformedStyle}>
+              <WorldSVG
+                countries={JSON.parse(userInfo.franceDpt)}
+                updateUser={updateUser}
+                userInfo={userInfo}
+              />
+            </Animated.View>
+          </PanGestureHandler>
+        </Animated.View>
+      </PinchGestureHandler>
     </View>
   );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  button: {
+    backgroundColor: '#CBA365',
+    padding: 10,
+    borderTopLeftRadius: 15,
+    borderBottomLeftRadius: 15,
+    position: 'absolute',
+    top: 10,
+    right: 0,
+    zIndex: 1,
+  },
+  textButton: {
+    color: '#141311',
+    fontSize: 18,
+  },
+});
+
 export default WorldMap;
-
-// import React, {useEffect, useState} from 'react';
-// import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
-// import Geolocation from '@react-native-community/geolocation';
-
-// const WorldMap = ({navigation}: any) => {
-//   const [geoLocationPerm, setGeoLocationPerm] = useState<any>({
-//     authorized: false,
-//     error: null,
-//   });
-
-//   useEffect(() => {
-//     Geolocation.requestAuthorization(
-//       () => {
-//         setGeoLocationPerm({authorized: true, error: null});
-//       },
-//       (error: any) => {
-//         console.log(error);
-//         switch (error) {
-//           case error.PERMISSION_DENIED === 1:
-//             setGeoLocationPerm({
-//               authorized: false,
-//               error: 'Permission refusée',
-//             });
-//             break;
-//           case error.POSITION_UNAVAILABLE === 2:
-//             setGeoLocationPerm({
-//               authorized: false,
-//               error: 'Position indisponible',
-//             });
-//             break;
-//           case error.TIMEOUT === 3:
-//             setGeoLocationPerm({
-//               authorized: false,
-//               error: 'Temps de réponse dépassé',
-//             });
-//             break;
-//           default:
-//             setGeoLocationPerm({authorized: false, error: 'Erreur inconnue'});
-//         }
-//       },
-//     );
-//   }, []);
-
-//   useEffect(() => {
-//     Geolocation.getCurrentPosition(
-//       (position: any) => {
-//         console.log(position);
-//       },
-//       (error: any) => {
-//         console.log(error);
-//       },
-//       {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
-//     );
-//   }, []);
-
-//   return (
-//     <View style={styles.container}>
-//       <TouchableOpacity
-//         style={styles.button}
-//         onPress={() => navigation.navigate('Profil')}>
-//         <Text style={styles.textButton}>Profil</Text>
-//       </TouchableOpacity>
-//       <Text>WorldMap</Text>
-//       <Text>
-//         Géolocalisation :{' '}
-//         {geoLocationPerm.authorized
-//           ? 'Geolocalisation activée'
-//           : geoLocationPerm.error}
-//       </Text>
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     padding: 16,
-//   },
-//   button: {
-//     backgroundColor: '#CBA365',
-//     padding: 10,
-//     borderTopLeftRadius: 15,
-//     borderBottomLeftRadius: 15,
-//     position: 'absolute',
-//     top: 10,
-//     right: 0,
-//   },
-//   textButton: {
-//     color: '#141311',
-//     fontSize: 18,
-//   },
-// });
-
-// export default WorldMap;

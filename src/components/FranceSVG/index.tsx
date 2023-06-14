@@ -412,7 +412,6 @@ const FranceSVG = ({departments, updateUser, userInfo}: FranceSVGProps) => {
         JSON.parse(userInfo.franceDpt).filter((dpt: any) => dpt !== id),
       ),
     };
-    console.log('updatedUserInfo', updatedUserInfo);
 
     updateUser(updatedUserInfo);
   };
