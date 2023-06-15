@@ -1894,18 +1894,7 @@ const WorldSVG = ({countries, updateUser, userInfo}: WorldSVGProps) => {
   };
 
   return (
-    <Svg
-      //baseprofile="tiny"
-      fill="#ececec"
-      height="857"
-      stroke="black"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width=".2"
-      //version="1.2"
-      //viewbox="0 0 2000 857"
-      width="2000"
-      xmlns="http://www.w3.org/2000/svg">
+    <Svg xmlns="http://www.w3.org/2000/svg" height="857" width="2000">
       {arrDpt.map((cnt, index) => {
         return (
           <Path

@@ -32,7 +32,7 @@ const UpdateProfile = ({navigation}: any) => {
     });
 
     await sleep(2000);
-    navigation.navigate('Profil');
+    navigation.navigate('profile');
   };
 
   const handleDeleteAccount = () => {
@@ -49,7 +49,7 @@ const UpdateProfile = ({navigation}: any) => {
           onPress: async () => {
             await deleteUser();
             await sleep(2000);
-            navigation.navigate('Connexion');
+            navigation.navigate('login');
           },
         },
       ],
@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    backgroundColor: '#242424',
   },
   section: {
     flex: 1,

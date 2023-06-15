@@ -87,7 +87,7 @@ const Profile = ({navigation}: any) => {
 
   const handleLogout = () => {
     logout();
-    navigation.navigate('Connexion');
+    navigation.navigate('login');
   };
 
   return (
@@ -160,7 +160,7 @@ const Profile = ({navigation}: any) => {
       <View style={styles.buttonsBox}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('Mise à jour du Profil')}>
+          onPress={() => navigation.navigate('update-profile')}>
           <Text style={styles.textButton}>Modifier mon profil</Text>
         </TouchableOpacity>
       </View>
@@ -177,6 +177,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    backgroundColor: '#242424',
   },
   section: {
     flex: 0.5,

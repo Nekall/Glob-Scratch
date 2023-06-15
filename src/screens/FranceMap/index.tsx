@@ -86,7 +86,7 @@ const FranceMap = ({navigation}: any) => {
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Profil')}>
+        onPress={() => navigation.navigate('profile')}>
         <Text style={styles.textButton}>Profil</Text>
       </TouchableOpacity>
       <TouchableOpacity
@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#242424',
   },
   button: {
     backgroundColor: '#CBA365',

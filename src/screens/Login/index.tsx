@@ -25,7 +25,7 @@ const Login = ({navigation}: any) => {
     if (email && password) {
       if (isEmail(email)) {
         await login(email.toLowerCase(), password);
-        navigation.navigate('Carte');
+        navigation.navigate('world-map');
       } else {
         Toast.error('Veuillez saisir un email valide');
       }
@@ -54,7 +54,7 @@ const Login = ({navigation}: any) => {
         onChangeText={text => setPassword(text)}
       />
       <TouchableOpacity
-        onPress={() => navigation.navigate('Inscription')}
+        onPress={() => navigation.navigate('signup')}
         style={styles.signupBtn}>
         <Text style={styles.textSignupBtn}>Créer un compte</Text>
       </TouchableOpacity>
@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
+    backgroundColor: '#242424',
   },
   input: {
     width: '100%',

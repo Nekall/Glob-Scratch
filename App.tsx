@@ -36,12 +36,36 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName={userToken ? 'Carte' : 'Connexion'}>
-        <Stack.Screen name="Carte France" component={FranceMap} />
-        <Stack.Screen name="Carte" component={WorldMap} />
-        <Stack.Screen name="Connexion" component={Login} />
-        <Stack.Screen name="Inscription" component={Signup} />
-        <Stack.Screen name="Profil" component={Profile} />
-        <Stack.Screen name="Mise à jour du Profil" component={UpdateProfile} />
+        <Stack.Screen
+          name="france-map"
+          component={FranceMap}
+          options={{title: 'Carte France'}}
+        />
+        <Stack.Screen
+          name="world-map"
+          component={WorldMap}
+          options={{title: 'Carte'}}
+        />
+        <Stack.Screen
+          name="login"
+          component={Login}
+          options={{title: 'Connexion'}}
+        />
+        <Stack.Screen
+          name="signup"
+          component={Signup}
+          options={{title: 'Inscription'}}
+        />
+        <Stack.Screen
+          name="profile"
+          component={Profile}
+          options={{title: 'Profil'}}
+        />
+        <Stack.Screen
+          name="update-profile"
+          component={UpdateProfile}
+          options={{title: 'Mise à jour du Profil'}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

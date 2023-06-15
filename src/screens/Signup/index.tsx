@@ -55,7 +55,7 @@ const Signup = ({navigation}: any) => {
           .then(responseJson => {
             if (responseJson.success) {
               Toast.success('Compte créé avec succès.');
-              navigation.navigate('Connexion');
+              navigation.navigate('login');
             } else {
               Toast.error(responseJson.message);
             }
@@ -132,6 +132,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
+    backgroundColor: '#242424',
   },
   logo: {
     width: 180,
