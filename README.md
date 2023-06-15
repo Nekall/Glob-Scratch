@@ -1,3 +1,5 @@
+<img src="https://github.com/Nekall/GlobeScratch/blob/main/README/preview.gif?raw=true"/>
+
 # GlobeScratch
 
 ### Découvrez GlobeScratch, une application mobile qui donne vie à votre passion pour les voyages ! Inspirée des célèbres Adventure Maps en papier, GlobeScratch vous permet de gratter virtuellement une carte du monde et de marquer les pays que vous avez explorés. Partagez vos aventures, revivez vos souvenirs et conquérez la carte du monde avec GlobeScratch.
@@ -5,10 +7,6 @@
 ## Versions      
 - n°1 - Carte de la France      
 - n°2 - Carte du monde  
-
-## Preview
-
-<img src="https://github.com/Nekall/GlobeScratch/blob/main/README/preview.gif?raw=true"/>
 
 ## Scripts disponibles
 
