@@ -1,5 +1,11 @@
+![image](https://raw.githubusercontent.com/Nekall/GlobeScratch/main/README/gs-intro.png)
+[![image](https://raw.githubusercontent.com/Nekall/GlobeScratch/main/README/gs-btn.png)](https://github.com/Nekall/GlobeScratch#configuration-du-projet-)
+![image](https://raw.githubusercontent.com/Nekall/GlobeScratch/main/README/gs-views.png)
+___      
+      
+## Aperçu du parcours utilisateur :      
 <img src="https://github.com/Nekall/GlobeScratch/blob/main/README/preview.gif?raw=true"/>
-
+      
 # GlobeScratch
 
 ### Découvrez GlobeScratch, une application mobile qui donne vie à votre passion pour les voyages ! Inspirée des célèbres Adventure Maps en papier, GlobeScratch vous permet de gratter virtuellement une carte du monde et de marquer les pays que vous avez explorés. Partagez vos aventures, revivez vos souvenirs et conquérez la carte du monde avec GlobeScratch.
@@ -65,3 +71,17 @@ Dépendances de développement
     react-test-renderer : Version 18.2.0
     typescript : Version 4.8.4
 ```
+
+
+## Configuration du projet : 
+
+Pour commencer avec le projet globescratch, suivez ces étapes :
+
+    Clonez le dépôt
+    Accédez au répertoire du projet
+    Installez les dépendances : npm install
+    Lancer le projet : npm run start
+    Puis deux solutions s'offre à vous:
+        - Emulateur
+        - Smartphone 
+    NotaBene: cette application disponible uniquement sur Android !
