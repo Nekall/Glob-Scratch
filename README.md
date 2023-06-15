@@ -4,7 +4,11 @@
 
 ## Versions      
 - n°1 - Carte de la France      
-- n°2 - Carte du monde      
+- n°2 - Carte du monde  
+
+## Preview
+
+<img src="https://github.com/Nekall/GlobeScratch/blob/main/README/preview.gif?raw=true"/>
 
 ## Scripts disponibles
 
