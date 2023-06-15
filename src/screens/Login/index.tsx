@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   textSignupBtn: {
-    color: '#141311',
+    color: '#ffffffb5',
     textDecorationLine: 'underline',
   },
   logo: {

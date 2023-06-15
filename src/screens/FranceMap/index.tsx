@@ -131,6 +131,10 @@ const styles = StyleSheet.create({
     top: 10,
     right: 0,
     zIndex: 1,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderColor: '#141311',
   },
   textButton: {
     color: '#141311',

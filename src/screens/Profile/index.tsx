@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   textButtonLogout: {
-    color: '#141311',
+    color: '#959595',
     fontSize: 16,
     textDecorationLine: 'underline',
   },
@@ -225,14 +225,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   badge: {
-    borderWidth: 1,
+    borderWidth: 0.5,
     borderColor: '#fff',
     width: 100,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 12,
     marginRight: 8,
-    backgroundColor: '#bebebe',
+    backgroundColor: '#9c9c9c',
   },
   iconBadge: {
     fontSize: 25,

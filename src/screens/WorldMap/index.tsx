@@ -91,7 +91,7 @@ const WorldMap = ({navigation}: any) => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.buttonFrance}
-        onPress={() => navigation.navigate('france-map²')}>
+        onPress={() => navigation.navigate('france-map')}>
         <Text style={styles.textButtonFrance}>🇫🇷</Text>
       </TouchableOpacity>
       <TouchableOpacity
@@ -136,6 +136,10 @@ const styles = StyleSheet.create({
     top: 10,
     right: 0,
     zIndex: 1,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderColor: '#141311',
   },
   textButton: {
     color: '#141311',
@@ -150,6 +154,10 @@ const styles = StyleSheet.create({
     bottom: 10,
     right: 0,
     zIndex: 1,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderColor: '#141311',
   },
   textButtonFrance: {
     color: '#141311',

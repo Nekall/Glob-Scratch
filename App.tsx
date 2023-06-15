@@ -35,36 +35,84 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={userToken ? 'Carte' : 'Connexion'}>
+      <Stack.Navigator initialRouteName={userToken ? 'world-map' : 'login'}>
         <Stack.Screen
           name="france-map"
           component={FranceMap}
-          options={{title: 'Carte France'}}
+          options={{
+            title: 'Carte France',
+            headerStyle: {
+              backgroundColor: '#141311',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
         />
         <Stack.Screen
           name="world-map"
           component={WorldMap}
-          options={{title: 'Carte'}}
+          options={{
+            title: 'Carte',
+            headerStyle: {
+              backgroundColor: '#141311',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
         />
         <Stack.Screen
           name="login"
           component={Login}
-          options={{title: 'Connexion'}}
+          options={{
+            title: 'Connexion',
+            headerShown: false,
+          }}
         />
         <Stack.Screen
           name="signup"
           component={Signup}
-          options={{title: 'Inscription'}}
+          options={{
+            title: 'Inscription',
+            headerStyle: {
+              backgroundColor: '#141311',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
         />
         <Stack.Screen
           name="profile"
           component={Profile}
-          options={{title: 'Profil'}}
+          options={{
+            title: 'Profil',
+            headerStyle: {
+              backgroundColor: '#141311',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
         />
         <Stack.Screen
           name="update-profile"
           component={UpdateProfile}
-          options={{title: 'Mise à jour du Profil'}}
+          options={{
+            title: 'Mise à jour du Profil',
+            headerStyle: {
+              backgroundColor: '#141311',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

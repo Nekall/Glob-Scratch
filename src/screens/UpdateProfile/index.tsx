@@ -59,27 +59,32 @@ const UpdateProfile = ({navigation}: any) => {
   return (
     <View style={styles.container}>
       <View style={styles.section}>
+        <Text style={styles.title}>Mon compte</Text>
+        <Text style={styles.label}>Email</Text>
         <TextInput
           style={styles.input}
-          placeholder="Email"
+          placeholder="Email*"
           value={email}
           onChangeText={text => setEmail(text)}
         />
+        <Text style={styles.label}>Prénom</Text>
         <TextInput
           style={styles.input}
-          placeholder="Prénom"
+          placeholder="Prénom*"
           value={firstname}
           onChangeText={text => setFirstname(text)}
         />
+        <Text style={styles.label}>Nom</Text>
         <TextInput
           style={styles.input}
-          placeholder="Nom"
+          placeholder="Nom*"
           value={lastname}
           onChangeText={text => setLastname(text)}
         />
+        <Text style={styles.label}>Pays</Text>
         <TextInput
           style={styles.input}
-          placeholder="Pays"
+          placeholder="Pays*"
           value={country}
           onChangeText={text => setCountry(text)}
         />
@@ -159,7 +164,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   buttonDelete: {
-    backgroundColor: '#b90000',
+    backgroundColor: '#8a000093',
     padding: 10,
     borderRadius: 5,
   },
@@ -169,7 +174,7 @@ const styles = StyleSheet.create({
   },
   hrDangerZone: {
     borderBottomWidth: 2,
-    borderBottomColor: '#b90000',
+    borderBottomColor: '#8a000093',
     width: '100%',
     marginBottom: 16,
     marginTop: 48,
