@@ -92,14 +92,21 @@ const Profile = ({navigation}: any) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.section}>
+      <View style={styles.sectionInfos}>
+        <Text style={styles.titleName}>
+          {firstname.toUpperCase()} {lastname.toUpperCase()}
+        </Text>
         <Text style={styles.title}>Informations personnelles :</Text>
-        <Text style={styles.label}>Nom: {lastname}</Text>
-        <Text style={styles.label}>Prénom: {firstname}</Text>
-        <Text style={styles.label}>Email: {email}</Text>
-        <Text style={styles.label}>Pays: {country}</Text>
+        <Text style={styles.label}>Prénom & Nom</Text>
+        <Text style={styles.infos}>
+          {firstname} {lastname}
+        </Text>
+        <Text style={styles.label}>Email</Text>
+        <Text style={styles.infos}>{email}</Text>
+        <Text style={styles.label}>Pays</Text>
+        <Text style={styles.infos}>{country}</Text>
       </View>
-      <View style={styles.section}>
+      <View style={styles.sectionStats}>
         <Text style={styles.title}>Statistiques France :</Text>
         <Text style={styles.label}>
           Nombre de département (métropole) visités: {visitedDepartments} /{' '}
@@ -164,9 +171,10 @@ const Profile = ({navigation}: any) => {
           <Text style={styles.textButton}>Modifier mon profil</Text>
         </TouchableOpacity>
       </View>
+      <Text style={styles.version}>v0.0.1</Text>
       <View style={styles.buttonLogoutBox}>
         <TouchableOpacity style={styles.buttonLogout} onPress={handleLogout}>
-          <Text style={styles.textButtonLogout}>Se déconnecter</Text>
+          <Text style={styles.textButtonLogout}>Déconnexion</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -179,24 +187,41 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: '#242424',
   },
-  section: {
-    flex: 0.5,
-    marginBottom: 16,
+  sectionInfos: {
+    flex: 3.2,
+    marginBottom: 6,
+  },
+  sectionStats: {
+    flex: 1.5,
+    marginBottom: 6,
+  },
+  titleName: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginTop: 8,
+    marginBottom: 8,
+    color: '#ffffff',
   },
   title: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 8,
+    marginBottom: 4,
   },
   label: {
     fontSize: 16,
     marginBottom: 4,
   },
+  infos: {
+    fontSize: 18,
+    marginBottom: 8,
+    marginLeft: 8,
+    color: '#ffffff',
+  },
   buttonsBox: {
-    flex: 0.15,
+    flex: 0.55,
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: 16,
+    marginBottom: 6,
   },
   button: {
     backgroundColor: '#CBA365',
@@ -208,7 +233,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   buttonLogoutBox: {
-    flex: 0.3,
+    flex: 0.6,
     flexDirection: 'row',
     justifyContent: 'center',
   },
@@ -216,12 +241,12 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   textButtonLogout: {
-    color: '#959595',
+    color: '#700000',
     fontSize: 16,
     textDecorationLine: 'underline',
   },
   badgesBox: {
-    flex: 1,
+    flex: 3.4,
     marginBottom: 10,
   },
   badge: {
@@ -248,6 +273,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontStyle: 'italic',
     color: '#3d3d3d',
+  },
+  version: {
+    textAlign: 'center',
+    color: '#ffffff',
+    fontSize: 14,
   },
 });
 
