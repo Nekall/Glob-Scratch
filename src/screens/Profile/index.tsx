@@ -99,12 +99,12 @@ const Profile = ({navigation}: any) => {
         <Text style={styles.title}>Informations personnelles :</Text>
         <Text style={styles.label}>Prénom & Nom</Text>
         <Text style={styles.infos}>
-          {firstname} {lastname}
+        👤  {firstname} {lastname}
         </Text>
         <Text style={styles.label}>Email</Text>
-        <Text style={styles.infos}>{email}</Text>
+        <Text style={styles.infos}>📧 {email}</Text>
         <Text style={styles.label}>Pays</Text>
-        <Text style={styles.infos}>{country}</Text>
+        <Text style={styles.infos}>🏠 {country}</Text>
       </View>
       <View style={styles.sectionStats}>
         <Text style={styles.title}>Statistiques France :</Text>
