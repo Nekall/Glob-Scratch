@@ -7,13 +7,13 @@ import {
   ScrollView,
 } from 'react-native';
 
-// Context
 import {AuthContext} from '../../context/Auth';
 
 const Profile = ({navigation}: any) => {
   const {logout, userInfo} = useContext(AuthContext);
   const {email, firstname, lastname, country, franceDpt, countries} = userInfo;
-  const franceAchievements: any[] = [
+
+  const franceAchievements = [
     {
       icon: '🥖',
       title: 'Baguette',
@@ -99,7 +99,7 @@ const Profile = ({navigation}: any) => {
         <Text style={styles.title}>Informations personnelles :</Text>
         <Text style={styles.label}>Prénom & Nom</Text>
         <Text style={styles.infos}>
-        👤  {firstname} {lastname}
+          👤 {firstname} {lastname}
         </Text>
         <Text style={styles.label}>Email</Text>
         <Text style={styles.infos}>📧 {email}</Text>

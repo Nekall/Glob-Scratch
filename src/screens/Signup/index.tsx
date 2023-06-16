@@ -34,6 +34,8 @@ const Signup = ({navigation}: any) => {
       country
     ) {
       setInputsIsValid(true);
+    } else {
+      setInputsIsValid(false);
     }
   }, [confirmPassword, email, password, firstname, lastname, country]);
 
@@ -117,7 +119,7 @@ const Signup = ({navigation}: any) => {
         style={styles.input}
       />
       <TouchableOpacity
-        style={styles.button}
+        style={[styles.button, !inputsIsValid && styles.disabledButton]}
         onPress={handleSignUp}
         disabled={!inputsIsValid}>
         <Text style={styles.textButton}>Créer un compte</Text>
@@ -153,6 +155,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#CBA365',
     padding: 10,
     borderRadius: 5,
+  },
+  disabledButton: {
+    opacity: 0.5,
   },
   textButton: {
     color: '#141311',

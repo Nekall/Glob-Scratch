@@ -34,6 +34,10 @@ const Login = ({navigation}: any) => {
     }
   };
 
+  const handleNavigateToSignup = () => {
+    navigation.navigate('signup');
+  };
+
   return (
     <View style={styles.container}>
       <Image
@@ -44,17 +48,17 @@ const Login = ({navigation}: any) => {
         style={styles.input}
         placeholder="Email"
         value={email}
-        onChangeText={text => setEmail(text)}
+        onChangeText={setEmail}
       />
       <TextInput
         style={styles.input}
         placeholder="Mot de passe"
         secureTextEntry
         value={password}
-        onChangeText={text => setPassword(text)}
+        onChangeText={setPassword}
       />
       <TouchableOpacity
-        onPress={() => navigation.navigate('signup')}
+        onPress={handleNavigateToSignup}
         style={styles.signupBtn}>
         <Text style={styles.textSignupBtn}>Créer un compte</Text>
       </TouchableOpacity>

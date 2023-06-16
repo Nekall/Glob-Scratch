@@ -65,28 +65,28 @@ const UpdateProfile = ({navigation}: any) => {
           style={styles.input}
           placeholder="Email*"
           value={email}
-          onChangeText={text => setEmail(text)}
+          onChangeText={setEmail}
         />
         <Text style={styles.label}>Prénom</Text>
         <TextInput
           style={styles.input}
           placeholder="Prénom*"
           value={firstname}
-          onChangeText={text => setFirstname(text)}
+          onChangeText={setFirstname}
         />
         <Text style={styles.label}>Nom</Text>
         <TextInput
           style={styles.input}
           placeholder="Nom*"
           value={lastname}
-          onChangeText={text => setLastname(text)}
+          onChangeText={setLastname}
         />
         <Text style={styles.label}>Pays</Text>
         <TextInput
           style={styles.input}
           placeholder="Pays*"
           value={country}
-          onChangeText={text => setCountry(text)}
+          onChangeText={setCountry}
         />
       </View>
       <View style={styles.buttonSaveBox}>
@@ -137,12 +137,6 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     marginBottom: 4,
-  },
-  buttonsBox: {
-    flex: 0.25,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginBottom: 16,
   },
   buttonSaveBox: {
     flexDirection: 'row',
